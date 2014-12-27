@@ -21,10 +21,10 @@ public class Movement : MonoBehaviour
 	{
 		Animator anim = GetComponent<Animator>();
 
-		anim.speed = 1f;
-
 		while(Vector3.Distance(transform.position, target) > 0.05f)
 		{
+			anim.SetBool ("isIdle", false);
+
 			if (target.y < transform.position.y && (Mathf.Abs(transform.position.x - target.x) < Mathf.Abs(transform.position.y - target.y)))
 			{
 				anim.SetTrigger("TrigDown");
@@ -46,6 +46,6 @@ public class Movement : MonoBehaviour
 			yield return null;
 		}
 
-		anim.speed = 0f;
+		anim.SetBool ("isIdle", true);
 	}
 }

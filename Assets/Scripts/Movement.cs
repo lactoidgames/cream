@@ -48,4 +48,12 @@ public class Movement : MonoBehaviour
 
 		anim.SetBool ("isIdle", true);
 	}
+
+	void OnTriggerEnter2D (Collider2D coll)
+	{
+		if (coll.gameObject.tag == "coin")
+		{
+			Destroy (coll.gameObject);
+		}
+	}
 }

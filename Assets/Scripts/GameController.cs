@@ -6,26 +6,28 @@ public class GameController : MonoBehaviour {
 
 	public GameObject coin;
 	public Text scoreText;
+	public Text timeText;
 	private int score;
+	public int time;
 		
 	void Start ()
 	{
 		score = 0;
 		spawnCoin (200);
-		StartCoroutine (CoinGeneration ());
+		StartCoroutine (StartGame ());
 		UpdateScore ();
 	}
-	
-	IEnumerator CoinGeneration ()
+
+	IEnumerator StartGame()
 	{
-		
-		while (true)
-		{
-			spawnCoin(1);
-			yield return new WaitForSeconds(1);
+		while (time>0) {
+			spawnCoin (1);
+			timeText.text = time.ToString ();
+			yield return new WaitForSeconds (1);
+			time -= 1;
 		}
 	}
-	
+
 	void spawnCoin (int n)
 	{
 		if (n>0)

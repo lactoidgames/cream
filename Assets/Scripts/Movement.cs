@@ -14,8 +14,9 @@ public class Movement : MonoBehaviour
 	}
 	
 	private Vector3 target;
-	
 	public float speed;
+	public int scoreValue;
+	public GameController gameController;
 
 	IEnumerator SetTarget ()
 	{
@@ -54,6 +55,7 @@ public class Movement : MonoBehaviour
 		if (coll.gameObject.tag == "coin")
 		{
 			Destroy (coll.gameObject);
+			gameController.AddScore(scoreValue);
 		}
 	}
 }

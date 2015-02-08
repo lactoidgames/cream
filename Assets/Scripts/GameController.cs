@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
 	public GameObject coin;
+	public Text scoreText;
+	private int score;
 		
 	void Start ()
 	{
+		score = 0;
 		spawnCoin (200);
 		StartCoroutine (CoinGeneration ());
+		UpdateScore ();
 	}
 	
 	IEnumerator CoinGeneration ()
@@ -31,5 +36,16 @@ public class GameController : MonoBehaviour {
 				Instantiate (coin, coinPosition, Quaternion.identity);
 			}
 		}
+	}
+
+	public void AddScore (int newScoreValue)
+	{
+		score += newScoreValue;
+		UpdateScore ();
+	}
+	
+	void UpdateScore ()
+	{
+		scoreText.text = "Score: " + score;
 	}
 }

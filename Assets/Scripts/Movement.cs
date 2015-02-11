@@ -16,7 +16,14 @@ public class Movement : MonoBehaviour
 	private Vector3 target;
 	public float speed;
 	public int scoreValue;
-	public GameController gameController;
+	private GameObject myObj;
+	private GameController gameController;
+	
+	void Start()
+	{
+		myObj = GameObject.Find ("gamecontrol");
+		gameController = myObj.GetComponent("GameController") as GameController;
+	}
 
 	IEnumerator SetTarget ()
 	{

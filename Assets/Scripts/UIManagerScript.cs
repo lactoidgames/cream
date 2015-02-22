@@ -3,31 +3,40 @@ using System.Collections;
 
 public class UIManagerScript : MonoBehaviour {
 
-	public GameObject newGameBtn;
-	public GameObject settingsBtn;
-	public GameObject randomBtn;
-	public GameObject friendsBtn;
-	public GameObject timeBtn;
-	public GameObject backBtn;
+	public GameObject mainPnl;
+	public GameObject newgamePnl;
+	public GameObject charselectPnl;
+	public GameObject[] pnls;
+
+	void SetActiveMenu(GameObject pnl)
+	{
+		foreach(GameObject p in pnls)
+		{
+			p.SetActive(false);
+		}
+		pnl.SetActive (true);
+	}
+
+
+	void Start()
+	{
+		pnls = new GameObject[] {mainPnl, newgamePnl, charselectPnl};
+		SetActiveMenu (mainPnl);
+	}
 	
 	public void NewGame()
 	{
-		newGameBtn.SetActive (false);
-		settingsBtn.SetActive (false);
-		randomBtn.SetActive (true);
-		friendsBtn.SetActive (true);
-		timeBtn.SetActive (true);
-		backBtn.SetActive (true);
+		SetActiveMenu (newgamePnl);
 	}
 
 	public void MainMenu()
 	{
-		newGameBtn.SetActive (true);
-		settingsBtn.SetActive (true);
-		randomBtn.SetActive (false);
-		friendsBtn.SetActive (false);
-		timeBtn.SetActive (false);
-		backBtn.SetActive (false);
+		SetActiveMenu (mainPnl);
+	}
+
+	public void CharSelect()
+	{
+		SetActiveMenu (charselectPnl);
 	}
 
 	public void StartTimeTrial()

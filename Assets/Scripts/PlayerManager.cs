@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Movement : MonoBehaviour 
+public class PlayerManager : MonoBehaviour 
 {
 	public Vector3 Target
 	{
@@ -15,16 +15,7 @@ public class Movement : MonoBehaviour
 	
 	private Vector3 target;
 	public float speed;
-	public int scoreValue;
-	private GameObject myObj;
-	private GameController gameController;
 	
-	void Start()
-	{
-		myObj = GameObject.Find ("gamecontrol");
-		gameController = myObj.GetComponent("GameController") as GameController;
-	}
-
 	IEnumerator SetTarget ()
 	{
 		Animator anim = GetComponent<Animator>();
@@ -62,7 +53,6 @@ public class Movement : MonoBehaviour
 		if (coll.gameObject.tag == "coin")
 		{
 			Destroy (coll.gameObject);
-			gameController.AddScore(scoreValue);
 		}
 	}
 }

@@ -3,13 +3,13 @@ using System.Collections;
 
 public class ClickSetPosition : MonoBehaviour {
 	
-	private GameObject myObj;
-	private Movement movement;
+	private GameObject player;
+	private PlayerManager playerManager;
 
 	void Start()
 	{
-		myObj = GameObject.Find ("player");
-		movement = myObj.GetComponent("Movement") as Movement;
+		player = GameObject.Find ("player");
+		playerManager = player.GetComponent("PlayerManager") as PlayerManager;
 	}
 
 	void OnMouseDown()
@@ -22,7 +22,7 @@ public class ClickSetPosition : MonoBehaviour {
 		if(hit.collider.gameObject == gameObject)
 		{
 			Vector3 newTarget = hit.point + new Vector3(0, 0, 0);
-			movement.Target = newTarget;
+			playerManager.Target = newTarget;
 		}
 	}
 }

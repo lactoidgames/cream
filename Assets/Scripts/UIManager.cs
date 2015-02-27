@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
-public class UIManagerScript : MonoBehaviour {
-
+public class UIManager : MonoBehaviour {
+	
 	public GameObject mainPnl;
 	public GameObject newgamePnl;
 	public GameObject charselectPnl;
 	public GameObject[] pnls;
+
+	public MainManager mainManager;
 
 	void SetActiveMenu(GameObject pnl)
 	{
@@ -16,12 +19,12 @@ public class UIManagerScript : MonoBehaviour {
 		}
 		pnl.SetActive (true);
 	}
-
-
+	
 	void Start()
 	{
 		pnls = new GameObject[] {mainPnl, newgamePnl, charselectPnl};
 		SetActiveMenu (mainPnl);
+
 	}
 	
 	public void NewGame()
@@ -41,7 +44,24 @@ public class UIManagerScript : MonoBehaviour {
 
 	public void StartTimeTrial()
 	{
+		mainManager.SpawnPlayer ("andrew");
 		Application.LoadLevel ("Main");
+	}
+
+	public Text scoreText;
+	public Text timeText;
+	private int score;
+	public int time;
+
+	public void AddScore (int newScoreValue)
+	{
+		score += newScoreValue;
+		UpdateScore ();
+	}
+	
+	void UpdateScore ()
+	{
+		scoreText.text = score + " Coins";
 	}
 
 }

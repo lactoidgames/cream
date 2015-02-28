@@ -3,14 +3,14 @@ using System.Collections;
 
 public class CameraFollow : MonoBehaviour 
 {
-	
-	public Transform target;
+	private GameObject player;
 	public float smoothTime = 1f;
 	private Transform thisTransform;
 	private Vector2 velocity;
 	
 	private void Start()
 	{
+		player = GameObject.Find ("player");
 		thisTransform = transform;
 	}
 	
@@ -18,9 +18,9 @@ public class CameraFollow : MonoBehaviour
 	{
 		Vector3 vec = thisTransform.position;
 		vec.x = Mathf.SmoothDamp( thisTransform.position.x, 
-		                         target.position.x, ref velocity.x, smoothTime);
+		                         player.transform.position.x, ref velocity.x, smoothTime);
 		vec.y = Mathf.SmoothDamp( thisTransform.position.y, 
-		                         target.position.y, ref velocity.y, smoothTime);
+		                         player.transform.position.y, ref velocity.y, smoothTime);
 		thisTransform.position = vec;
 
 		thisTransform.position = new Vector3(Mathf.Clamp(transform.position.x, -7.29F, 7.29F), 

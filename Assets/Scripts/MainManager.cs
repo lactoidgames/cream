@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class MainManager : MonoBehaviour {
 	
@@ -31,6 +32,51 @@ public class MainManager : MonoBehaviour {
 		byte[] image = System.IO.File.ReadAllBytes ("Assets/Sprites/" + avatar + ".png");
 		SpriteRenderer sprite = player.GetComponent<SpriteRenderer> ();
 		sprite.sprite.texture.LoadImage (image);
+	}
+
+	public GameObject mainPnl;
+	public GameObject newgamePnl;
+	public GameObject charselectPnl;
+	public GameObject gamePnl;
+	public GameObject background;
+	public GameObject[] pnls;
+	
+	public void SetActiveMenu(GameObject pnl)
+	{
+		foreach(GameObject p in pnls)
+		{
+			p.SetActive(false);
+		}
+		pnl.SetActive (true);
+	}
+	
+	void Start()
+	{
+		pnls = new GameObject[] {mainPnl, newgamePnl, charselectPnl, gamePnl};
+		SetActiveMenu (mainPnl);
+		
+	}
+	
+	public void StartTimeTrial()
+	{
+		SpawnPlayer ("andrew");
+		Application.LoadLevel ("Main");
+	}
+	
+	public Text scoreText;
+	public Text timeText;
+	private int score;
+	public int time;
+	
+	public void AddScore (int newScoreValue)
+	{
+		score += newScoreValue;
+		UpdateScore ();
+	}
+	
+	void UpdateScore ()
+	{
+		scoreText.text = score + " Coins";
 	}
 
 }

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 
 		//set UI panel to the game panel
 		uiManager.SetActiveMenu (uiManager.gamePnl);
+		uiManager.background.SetActive (false);
 
 		mainManager.spawnCoin (1);
 		StartCoroutine (mainManager.SpawnCoins ());

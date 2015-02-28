@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour {
 	public GameObject newgamePnl;
 	public GameObject charselectPnl;
 	public GameObject gamePnl;
+	public GameObject background;
 	public GameObject[] pnls;
 
 	public MainManager mainManager;

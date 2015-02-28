@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour {
 
 	public MainManager mainManager;
 
-	void SetActiveMenu(GameObject pnl)
+	public void SetActiveMenu(GameObject pnl)
 	{
 		foreach(GameObject p in pnls)
 		{
@@ -25,21 +25,6 @@ public class UIManager : MonoBehaviour {
 		pnls = new GameObject[] {mainPnl, newgamePnl, charselectPnl};
 		SetActiveMenu (mainPnl);
 
-	}
-	
-	public void NewGame()
-	{
-		SetActiveMenu (newgamePnl);
-	}
-
-	public void MainMenu()
-	{
-		SetActiveMenu (mainPnl);
-	}
-
-	public void CharSelect()
-	{
-		SetActiveMenu (charselectPnl);
 	}
 
 	public void StartTimeTrial()

@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour {
 	private GameObject mainControl;
 	private GameObject uiControl;
 	
-
 	void Start()
 	{
 		//get reference to MainManager script
@@ -16,6 +15,9 @@ public class GameManager : MonoBehaviour {
 		//get reference to UIManager script
 		uiControl = GameObject.Find ("control_ui");
 		UIManager uiManager = uiControl.GetComponent<UIManager>();
+
+		//set UI panel to the game panel
+		uiManager.SetActiveMenu (uiManager.gamePnl);
 
 		mainManager.spawnCoin (1);
 		StartCoroutine (mainManager.SpawnCoins ());

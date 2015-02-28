@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour {
 	public GameObject mainPnl;
 	public GameObject newgamePnl;
 	public GameObject charselectPnl;
+	public GameObject gamePnl;
 	public GameObject[] pnls;
 
 	public MainManager mainManager;
@@ -22,7 +23,7 @@ public class UIManager : MonoBehaviour {
 	
 	void Start()
 	{
-		pnls = new GameObject[] {mainPnl, newgamePnl, charselectPnl};
+		pnls = new GameObject[] {mainPnl, newgamePnl, charselectPnl, gamePnl};
 		SetActiveMenu (mainPnl);
 
 	}

@@ -3,6 +3,54 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class MainManager : MonoBehaviour {
+
+	public GameObject mainPnl;
+	public GameObject newgamePnl;
+	public GameObject charselectPnl;
+	public GameObject gamePnl;
+	public GameObject background;
+	public GameObject gameoverPnl;
+	public GameObject[] pnls;
+
+	public Text scoreText;
+	public Text timeText;
+	public Text gameoverText;
+	private int score;
+	public int time;
+
+	public bool gameOver;
+
+	void Start()
+	{
+		pnls = new GameObject[] {mainPnl, newgamePnl, charselectPnl, gamePnl, gameoverPnl};
+		SetActiveMenu (mainPnl);
+		gameOver = false;
+	}
+
+	public void SetActiveMenu(GameObject pnl)
+	{
+		foreach(GameObject p in pnls)
+		{
+			p.SetActive(false);
+		}
+		pnl.SetActive (true);
+	}
+
+	public IEnumerator SpawnCoins()
+	{
+		while (true) 
+		{
+			spawnCoin (1);
+			yield return new WaitForSeconds (1);
+			time = time - 1;
+			
+			if (time == 0)
+			{
+				GameOver ();
+				break;
+			}
+		}
+	}
 	
 	public void spawnCoin (int n)
 	{
@@ -16,16 +64,7 @@ public class MainManager : MonoBehaviour {
 			}
 		}
 	}
-
-	public IEnumerator SpawnCoins()
-	{
-		while (time>0) {
-			spawnCoin (1);
-			yield return new WaitForSeconds (1);
-			time = time - 1;
-		}
-	}
-
+	
 	public void SpawnPlayer(string avatar)
 	{
 		GameObject player = Instantiate(Resources.Load("player")) as GameObject;
@@ -34,40 +73,37 @@ public class MainManager : MonoBehaviour {
 		SpriteRenderer sprite = player.GetComponent<SpriteRenderer> ();
 		sprite.sprite.texture.LoadImage (image);
 	}
-
-	public GameObject mainPnl;
-	public GameObject newgamePnl;
-	public GameObject charselectPnl;
-	public GameObject gamePnl;
-	public GameObject background;
-	public GameObject[] pnls;
-	
-	public void SetActiveMenu(GameObject pnl)
-	{
-		foreach(GameObject p in pnls)
-		{
-			p.SetActive(false);
-		}
-		pnl.SetActive (true);
-	}
-	
-	void Start()
-	{
-		pnls = new GameObject[] {mainPnl, newgamePnl, charselectPnl, gamePnl};
-		SetActiveMenu (mainPnl);
-	}
 	
 	public void StartTimeTrial()
 	{
 		SpawnPlayer ("andrew");
 		Application.LoadLevel ("Main");
 	}
-	
-	public Text scoreText;
-	public Text timeText;
-	private int score;
-	public int time;
-	
+
+	public void RestartLevel()
+	{
+		Application.LoadLevel (Application.loadedLevel);
+		score = 0;
+		time = 10;
+		gameOver = false;
+	}
+
+	public void MainMenu()
+	{
+		DestroyAllGameObjects ();
+		Application.LoadLevel ("MainMenu");
+	}
+
+	public void DestroyAllGameObjects()
+	{
+		GameObject[] GameObjects = (FindObjectsOfType<GameObject>() as GameObject[]);
+		
+		foreach (GameObject g in GameObjects)
+		{
+			Destroy(g);
+		}
+	}
+		
 	public void AddScore (int newScoreValue)
 	{
 		score += newScoreValue;
@@ -77,6 +113,13 @@ public class MainManager : MonoBehaviour {
 	void UpdateScore ()
 	{
 		scoreText.text = score + " Coins";
+	}
+
+	public void GameOver()
+	{
+		gameOver = true;
+		SetActiveMenu (gameoverPnl);
+		gameoverText.text = score.ToString();
 	}
 
 }

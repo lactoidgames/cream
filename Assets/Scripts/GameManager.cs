@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour {
 		mainManager.SetActiveMenu (mainManager.gamePnl);
 		mainManager.background.SetActive (false);
 
-		mainManager.spawnCoin (1);
+		mainManager.spawnCoin (50);
 		StartCoroutine (mainManager.SpawnCoins ());
 	}
 

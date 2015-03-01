@@ -3,6 +3,16 @@ using System.Collections;
 
 public class PlayerManager : MonoBehaviour 
 {
+	public GameObject mainControl;
+	public MainManager mainManager;
+
+	void Start()
+	{
+		//get reference to MainManager script
+		mainControl = GameObject.Find ("control_main");
+		mainManager = mainControl.GetComponent<MainManager> ();
+	}
+
 	public Vector3 Target
 	{
 		get { return Target; }
@@ -53,6 +63,7 @@ public class PlayerManager : MonoBehaviour
 		if (coll.gameObject.tag == "coin")
 		{
 			Destroy (coll.gameObject);
+			mainManager.AddScore(1);
 		}
 	}
 }

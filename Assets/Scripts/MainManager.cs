@@ -19,9 +19,10 @@ public class MainManager : MonoBehaviour {
 
 	public IEnumerator SpawnCoins()
 	{
-		while (true) {
+		while (time>0) {
 			spawnCoin (1);
 			yield return new WaitForSeconds (1);
+			time = time - 1;
 		}
 	}
 
@@ -54,7 +55,6 @@ public class MainManager : MonoBehaviour {
 	{
 		pnls = new GameObject[] {mainPnl, newgamePnl, charselectPnl, gamePnl};
 		SetActiveMenu (mainPnl);
-		
 	}
 	
 	public void StartTimeTrial()

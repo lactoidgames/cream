@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class MainManager : MonoBehaviour {
 
@@ -19,6 +20,7 @@ public class MainManager : MonoBehaviour {
 	public int time;
 
 	public bool gameOver;
+	public EventSystem eventSystem;
 
 	void Start()
 	{
@@ -73,10 +75,10 @@ public class MainManager : MonoBehaviour {
 		SpriteRenderer sprite = player.GetComponent<SpriteRenderer> ();
 		sprite.sprite.texture.LoadImage (image);
 	}
-	
+
 	public void StartTimeTrial()
 	{
-		SpawnPlayer ("andrew");
+		SpawnPlayer (eventSystem.currentSelectedGameObject.name);
 		Application.LoadLevel ("Main");
 	}
 

@@ -2,15 +2,21 @@
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
-
-	private GameObject mainControl;
-	public MainManager mainManager;
+	
+	private MainManager mainManager;
 	
 	void Start()
 	{
 		//get reference to MainManager script
-		mainControl = GameObject.Find ("control_main");
-		mainManager = mainControl.GetComponent<MainManager>();
+		GameObject mainControl = GameObject.FindWithTag("MainControl");
+		if (mainControl != null)
+		{
+			mainManager = mainControl.GetComponent<MainManager>();
+		}
+		if (mainControl == null)
+		{
+			Debug.Log ("Cannot find ‘MainManager’ script");
+		}
 
 		//set UI panel to the game panel
 		mainManager.SetActiveMenu (mainManager.gamePnl);

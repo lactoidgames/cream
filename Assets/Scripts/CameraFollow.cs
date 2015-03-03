@@ -8,13 +8,13 @@ public class CameraFollow : MonoBehaviour
 	private Transform thisTransform;
 	private Vector2 velocity;
 	
-	private void Start()
+	void Start()
 	{
 		player = GameObject.Find ("player");
 		thisTransform = transform;
 	}
 	
-	private void Update() 
+	void Update() 
 	{
 		Vector3 vec = thisTransform.position;
 		vec.x = Mathf.SmoothDamp( thisTransform.position.x, 

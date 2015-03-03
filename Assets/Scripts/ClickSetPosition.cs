@@ -2,18 +2,33 @@
 using System.Collections;
 
 public class ClickSetPosition : MonoBehaviour {
-	
-	private GameObject player;
+
 	private PlayerManager playerManager;
-	private GameObject mainControl;
-	public MainManager mainManager;
+	private MainManager mainManager;
 
 	void Start()
 	{
-		player = GameObject.Find ("player");
-		playerManager = player.GetComponent<PlayerManager>();
-		mainControl = GameObject.Find ("control_main");
-		mainManager = mainControl.GetComponent<MainManager>();
+		//get reference to MainManager script
+		GameObject mainControl = GameObject.FindWithTag("MainControl");
+		if (mainControl != null)
+		{
+			mainManager = mainControl.GetComponent<MainManager>();
+		}
+		if (mainControl == null)
+		{
+			Debug.Log ("Cannot find ‘MainManager’ script");
+		}
+
+		//get reference to PlayerManager script
+		GameObject player = GameObject.Find ("player");
+		if (player != null)
+		{
+			playerManager = player.GetComponent<PlayerManager>();
+		}
+		if (player == null)
+		{
+			Debug.Log ("Cannot find ‘PlayerManager’ script");
+		}
 	}
 
 	void OnMouseDown()

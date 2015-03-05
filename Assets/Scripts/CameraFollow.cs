@@ -23,7 +23,7 @@ public class CameraFollow : MonoBehaviour
 		                         player.transform.position.y, ref velocity.y, smoothTime);
 		thisTransform.position = vec;
 
-		thisTransform.position = new Vector3(Mathf.Clamp(transform.position.x, -7.29F, 7.29F), 
-		                                 Mathf.Clamp(transform.position.y, -1.95F, 1.95F), -10);
+		thisTransform.position = new Vector3(Mathf.Clamp(transform.position.x, -3.09F, 3.09F), 
+		                                 Mathf.Clamp(transform.position.y, -3.06F, 3.06F), -10);
 	}
 }

@@ -25,7 +25,8 @@ public class GameManager : MonoBehaviour {
 		mainManager.spawnCoin (50);
 		StartCoroutine (mainManager.SpawnCoins ());
 
-		waypoints = new GameObject[] {waypoint1, waypoint2, waypoint3, waypoint4};
+		waypoints = new GameObject[] {waypoint1, waypoint2, waypoint3, waypoint4, 
+									  waypoint5, waypoint6, waypoint7, waypoint8};
 		StartCoroutine(SpawnCars ());
 	}
 
@@ -38,6 +39,10 @@ public class GameManager : MonoBehaviour {
 	public GameObject waypoint2;
 	public GameObject waypoint3;
 	public GameObject waypoint4;
+	public GameObject waypoint5;
+	public GameObject waypoint6;
+	public GameObject waypoint7;
+	public GameObject waypoint8;
 	public GameObject[] waypoints;
 	public float speed;
 
@@ -47,19 +52,36 @@ public class GameManager : MonoBehaviour {
 		{
 			foreach(GameObject w in waypoints)
 			{
-				GameObject car = Instantiate(Resources.Load("carplaceholder")) as GameObject;
+				GameObject car = Instantiate(Resources.Load("car")) as GameObject;
 				car.transform.position = w.transform.position;
 				car.name = "car";
+				if (w.tag == "right")
+				{
+					ChangeCarSprite(car, "carplaceholder");
+				}
 				if (w.tag == "left")
 				{
-					Vector3 newScale = car.transform.localScale;
-					newScale.x *= -1;
-					car.transform.localScale = newScale;
+					ChangeCarSprite(car, "carplaceholder");
+				}
+				if (w.tag == "up")
+				{
+					ChangeCarSprite(car, "carplaceholder");
+				}
+				if (w.tag == "down")
+				{
+					ChangeCarSprite(car, "carplaceholder");
 				}
 				yield return new WaitForSeconds(1);
 			}
 			yield return new WaitForSeconds(2);
 		}
+	}
+
+	void ChangeCarSprite(GameObject car, string name)
+	{
+		byte[] image = System.IO.File.ReadAllBytes ("Assets/Sprites/" + name + ".png");
+		SpriteRenderer sprite = car.GetComponent<SpriteRenderer> ();
+		sprite.sprite.texture.LoadImage (image);
 	}
 		                          
 

@@ -61,7 +61,7 @@ public class MainManager : MonoBehaviour {
 			for (int i = 0; i < n; i++)
 			{
 				GameObject coin = Instantiate(Resources.Load("coin")) as GameObject;
-				coin.transform.Translate(Random.Range (-10f, 10f), Random.Range (-3f, 3f), 0f);
+				coin.transform.Translate(Random.Range (-5.4f, 5.4f), Random.Range (-4.2f, 4.2f), 0f);
 				coin.name = "coin";
 			}
 		}

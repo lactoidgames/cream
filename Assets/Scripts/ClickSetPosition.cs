@@ -30,21 +30,33 @@ public class ClickSetPosition : MonoBehaviour {
 			Debug.Log ("Cannot find ‘PlayerManager’ script");
 		}
 	}
-
+	
 	void OnMouseDown()
 	{
 		if(mainManager.gameOver == false)
 		{
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-		
-			Physics.Raycast(ray, out hit);
-		
-			if(hit.collider.gameObject == gameObject)
+			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+			
+			if(hit.collider != null)
 			{
-				Vector3 newTarget = hit.point + new Vector3(0, 0, 0);
+				Vector2 newTarget = hit.point + new Vector2(0, 0);
 				playerManager.Target = newTarget;
 			}
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

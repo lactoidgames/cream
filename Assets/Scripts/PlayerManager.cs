@@ -4,6 +4,8 @@ using System.Collections;
 public class PlayerManager : MonoBehaviour 
 {
 	private MainManager mainManager;
+	private Animator animator;
+	private Animation anim;
 
 	void Start()
 	{
@@ -17,6 +19,10 @@ public class PlayerManager : MonoBehaviour
 		{
 			Debug.Log ("Cannot find ‘MainManager’ script");
 		}
+
+		//get reference to Animator and Animation components
+		animator = GetComponent<Animator> ();
+		anim = GetComponent<Animation> ();
 	}
 
 	public Vector3 Target
@@ -34,34 +40,32 @@ public class PlayerManager : MonoBehaviour
 	
 	IEnumerator SetTarget ()
 	{
-		Animator anim = GetComponent<Animator>();
-
 		while(Vector3.Distance(transform.position, target) > 0.05f)
 		{
-			anim.SetBool ("isIdle", false);
+			animator.SetBool ("isIdle", false);
 
 			if (target.y < transform.position.y && (Mathf.Abs(transform.position.x - target.x) < Mathf.Abs(transform.position.y - target.y)))
 			{
-				anim.SetTrigger("TrigDown");
+				animator.SetTrigger("TrigDown");
 			}
 			if (target.y > transform.position.y && (Mathf.Abs(transform.position.x - target.x) < Mathf.Abs(transform.position.y - target.y)))
 			{
-				anim.SetTrigger("TrigUp");
+				animator.SetTrigger("TrigUp");
 			}
 			if (target.x > transform.position.x && (Mathf.Abs(transform.position.x - target.x) > Mathf.Abs(transform.position.y - target.y)))
 			{
-				anim.SetTrigger("TrigRight");
+				animator.SetTrigger("TrigRight");
 			}
 			if (target.x < transform.position.x && (Mathf.Abs(transform.position.x - target.x) > Mathf.Abs(transform.position.y - target.y)))
 			{
-				anim.SetTrigger("TrigLeft");
+				animator.SetTrigger("TrigLeft");
 			}
 
 			transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 			yield return null;
 		}
 
-		anim.SetBool ("isIdle", true);
+		animator.SetBool ("isIdle", true);
 	}
 
 	void OnTriggerEnter2D (Collider2D coll)
@@ -70,6 +74,10 @@ public class PlayerManager : MonoBehaviour
 		{
 			Destroy (coll.gameObject);
 			mainManager.AddScore(1);
+		}
+		if (coll.gameObject.tag == "car")
+		{
+			anim.CrossFade("Hit");
 		}
 	}
 }

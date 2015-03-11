@@ -84,9 +84,11 @@ public class MainManager : MonoBehaviour {
 
 	public void RestartLevel()
 	{
+		GameObject player = GameObject.Find ("player");
+		player.transform.position = new Vector2 (0, 0);
 		Application.LoadLevel (Application.loadedLevel);
 		score = 0;
-		time = 10;
+		time = 60;
 		gameOver = false;
 	}
 

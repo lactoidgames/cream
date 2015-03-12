@@ -38,35 +38,6 @@ public class MainManager : MonoBehaviour {
 		pnl.SetActive (true);
 	}
 
-	public IEnumerator SpawnCoins()
-	{
-		while (true) 
-		{
-			spawnCoin (1);
-			yield return new WaitForSeconds (1);
-			time = time - 1;
-			
-			if (time == 0)
-			{
-				GameOver ();
-				break;
-			}
-		}
-	}
-	
-	public void spawnCoin (int n)
-	{
-		if (n>0)
-		{
-			for (int i = 0; i < n; i++)
-			{
-				GameObject coin = Instantiate(Resources.Load("coin")) as GameObject;
-				coin.transform.Translate(Random.Range (-5.4f, 5.4f), Random.Range (-4.2f, 4.2f), 0f);
-				coin.name = "coin";
-			}
-		}
-	}
-	
 	public void SpawnPlayer(string avatar)
 	{
 		GameObject player = Instantiate(Resources.Load("player")) as GameObject;

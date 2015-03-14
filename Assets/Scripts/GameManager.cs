@@ -5,15 +5,13 @@ public class GameManager : MonoBehaviour {
 	
 	private MainManager mainManager;
 	
-	public BoxCollider2D building1;
-	public BoxCollider2D building2;
-	public BoxCollider2D building3;
-	public BoxCollider2D building4;
-	public BoxCollider2D building5;
-	public BoxCollider2D building6;
-	public BoxCollider2D building7;
-	public BoxCollider2D building8;
-	private BoxCollider2D[] buildings;
+	public PolygonCollider2D building1;
+	public PolygonCollider2D building2;
+	public PolygonCollider2D building3;
+	public PolygonCollider2D building4;
+	public PolygonCollider2D building5;
+	public PolygonCollider2D building6;
+	private PolygonCollider2D[] buildings;
 
 	public GameObject waypoint1;
 	public GameObject waypoint2;
@@ -45,11 +43,11 @@ public class GameManager : MonoBehaviour {
 		mainManager.SetActiveMenu (mainManager.gamePnl);
 		mainManager.background.SetActive (false);
 
-		waypoints = new GameObject[] {waypoint1, waypoint2, waypoint3, waypoint4, 
+		waypoints = new GameObject[] {waypoint1, waypoint2, waypoint3, waypoint4,
 									  waypoint5, waypoint6, waypoint7, waypoint8};
 
-		buildings = new BoxCollider2D[] {building1, building2, building3, building4, 
-										 building5, building6, building7, building8};
+		buildings = new PolygonCollider2D[] {building1, building2, building3, building4, 
+										 building5, building6};
 
 		StartCoroutine (SpawnCoins ());
 		StartCoroutine(SpawnCars ());
@@ -59,38 +57,7 @@ public class GameManager : MonoBehaviour {
 	{
 		mainManager.timeText.text = mainManager.time.ToString();
 	}
-
-	IEnumerator SpawnCars()
-	{
-		while (true)
-		{
-			foreach(GameObject w in waypoints)
-			{
-				GameObject car = Instantiate(Resources.Load("car")) as GameObject;
-				car.transform.position = w.transform.position;
-				car.name = "car";
-				if (w.tag == "right")
-				{
-					ChangeCarSprite(car, "carplaceholder");
-				}
-				if (w.tag == "left")
-				{
-					ChangeCarSprite(car, "carplaceholder");
-				}
-				if (w.tag == "up")
-				{
-					ChangeCarSprite(car, "carplaceholder");
-				}
-				if (w.tag == "down")
-				{
-					ChangeCarSprite(car, "carplaceholder");
-				}
-				yield return new WaitForSeconds(1);
-			}
-			yield return new WaitForSeconds(2);
-		}
-	}
-
+	
 	IEnumerator SpawnCoins()
 	{
 		while (true) 
@@ -132,11 +99,35 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	void ChangeCarSprite(GameObject car, string name)
+	IEnumerator SpawnCars()
 	{
-		byte[] image = System.IO.File.ReadAllBytes ("Assets/Sprites/" + name + ".png");
-		SpriteRenderer sprite = car.GetComponent<SpriteRenderer> ();
-		sprite.sprite.texture.LoadImage (image);
+		while (true)
+		{
+			foreach(GameObject w in waypoints)
+			{                                             
+				if (w.tag == "downright0") SpawnCar("carplaceholder_0", w, "downright0");
+				if (w.tag == "downright1") SpawnCar("carplaceholder_0", w, "downright1");
+				if (w.tag == "downleft0")  SpawnCar("carplaceholder_3", w, "downleft0");
+				if (w.tag == "downleft1")  SpawnCar("carplaceholder_3", w, "downleft1");
+				if (w.tag == "upright0")   SpawnCar("carplaceholder_2", w, "upright0");
+				if (w.tag == "upright1")   SpawnCar("carplaceholder_2", w, "upright1");
+				if (w.tag == "upleft0")    SpawnCar("carplaceholder_1", w, "upleft0");
+				if (w.tag == "upleft1")    SpawnCar("carplaceholder_1", w, "upleft1");
+
+				yield return new WaitForSeconds(1);
+			}
+			yield return new WaitForSeconds(2);
+		}
+	}
+	
+	
+	void SpawnCar(string name, GameObject spawnPosition, string tag)
+	{
+		GameObject car = Instantiate(Resources.Load("car")) as GameObject;
+		car.GetComponent<SpriteRenderer> ().sprite = Resources.Load (name, typeof(Sprite)) as Sprite;
+		car.transform.position = spawnPosition.transform.position;
+		car.name = "car";
+		car.tag = tag;
 	}
 		                          
 

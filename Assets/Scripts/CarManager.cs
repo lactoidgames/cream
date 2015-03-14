@@ -4,56 +4,32 @@ using System.Collections;
 public class CarManager : MonoBehaviour {
 
 	public float speed;
-	private string direction;
-
-	void Start()
-	{
-		if (this.transform.position.y == 1.5f || this.transform.position.y == -1.85f)
-		{
-			direction = "right";
-		}
-		if (this.transform.position.y == 2.1f || this.transform.position.y == -1.2f)
-		{
-			direction = "left";
-		}
-		if (this.transform.position.x == -3.3f || this.transform.position.x == 2.5f)
-		{
-			direction = "down";
-		}
-		if (this.transform.position.x == -2.5f || this.transform.position.x == 3.3f)
-		{
-			direction = "up";
-		}
-	}
-
 
 	void Update()
 	{
-		if (direction == "right")
+		if (this.tag == "downright0" || this.tag == "downright1")
 		{
-			Vector3 right = new Vector3(0.5f, 0f);
-			this.transform.Translate (right * speed * Time.deltaTime);
+			this.transform.Translate (new Vector2(0.5f, -0.25f) * speed * Time.deltaTime);
 		}
-		if (direction == "left")
+		if (this.tag == "upleft0" || this.tag == "upleft1")
 		{
-			Vector3 left = new Vector3(-0.5f, 0f);
-			this.transform.Translate (left * speed * Time.deltaTime);
+			this.transform.Translate (new Vector2(-0.5f, 0.25f) * speed * Time.deltaTime);
 		}
-		if (direction == "down")
+		if (this.tag == "upright0" || this.tag == "upright1")
 		{
-			Vector3 down = new Vector3(0f, -0.5f);
-			this.transform.Translate (down * speed * Time.deltaTime);
+			this.transform.Translate (new Vector2(0.5f, 0.25f) * speed * Time.deltaTime);
 		}
-		if (direction == "up")
+		if (this.tag == "downleft0" || this.tag == "downleft1")
 		{
-			Vector3 up = new Vector3(0f, 0.5f);
-			this.transform.Translate (up * speed * Time.deltaTime);
+			this.transform.Translate (new Vector2(-0.5f, -0.25f) * speed * Time.deltaTime);
 		}
+	}
 
-		if (this.transform.position.x > 6f || this.transform.position.x < -6f ||
-		    this.transform.position.y > 5f || this.transform.position.y < -5f)
+	void OnTriggerEnter2D (Collider2D coll)
+	{
+		if (coll.gameObject.tag == "destroy")
 		{
-			Destroy(this.gameObject);
+			Destroy (this.gameObject);
 		}
 	}
 }

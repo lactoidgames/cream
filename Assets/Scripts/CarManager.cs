@@ -25,11 +25,18 @@ public class CarManager : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D (Collider2D coll)
+	void OnEnable()
 	{
-		if (coll.gameObject.tag == "destroy")
-		{
-			Destroy (this.gameObject);
-		}
+		Invoke ("Destroy", 4.5f);
+	}
+
+	void Destroy()
+	{
+		gameObject.SetActive (false);
+	}
+
+	void OnDisable()
+	{
+		CancelInvoke();
 	}
 }

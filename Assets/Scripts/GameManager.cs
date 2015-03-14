@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 	
@@ -25,7 +26,10 @@ public class GameManager : MonoBehaviour {
 
 	public float speed;
 	private bool coinSpawnable;
-	
+
+	public int pooledAmountOfCars = 5;
+	List<GameObject> cars;
+
 	void Start()
 	{
 		//gets reference to MainManager script
@@ -48,6 +52,14 @@ public class GameManager : MonoBehaviour {
 
 		buildings = new PolygonCollider2D[] {building1, building2, building3, building4, 
 										 building5, building6};
+
+		cars = new List<GameObject> ();
+		for (int i = 0; i < pooledAmountOfCars; i++)
+		{
+			GameObject obj = Instantiate(Resources.Load("car")) as GameObject;
+			obj.SetActive(false);
+			cars.Add(obj);
+		}
 
 		StartCoroutine (SpawnCoins ());
 		StartCoroutine(SpawnCars ());
@@ -123,13 +135,17 @@ public class GameManager : MonoBehaviour {
 	
 	void SpawnCar(string name, GameObject spawnPosition, string tag)
 	{
-		GameObject car = Instantiate(Resources.Load("car")) as GameObject;
-		car.GetComponent<SpriteRenderer> ().sprite = Resources.Load (name, typeof(Sprite)) as Sprite;
-		car.transform.position = spawnPosition.transform.position;
-		car.name = "car";
-		car.tag = tag;
+		for (int i = 0; i < cars.Count; i++)
+		{
+			if (!cars[i].activeInHierarchy)
+			{
+				cars[i].SetActive(true);
+				cars[i].GetComponent<SpriteRenderer> ().sprite = Resources.Load (name, typeof(Sprite)) as Sprite;
+				cars[i].transform.position = spawnPosition.transform.position;
+				cars[i].name = "car";
+				cars[i].tag = tag;
+				break;
+			}
+		}
 	}
-		                          
-
-
 }

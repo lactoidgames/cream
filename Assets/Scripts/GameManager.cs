@@ -93,9 +93,10 @@ public class GameManager : MonoBehaviour {
 
 			if(coinSpawnable == true)
 			{
-				GameObject coin = Instantiate(Resources.Load("coin")) as GameObject;
-				coin.transform.Translate(spawnLocation);
-				coin.name = "coin";
+				GameObject obj = ObjectPoolerScript.current.GetPooledObject ("coin");
+				obj.transform.position = spawnLocation;
+				obj.name = "coin";
+				obj.SetActive(true);
 			}
 		}
 	}
@@ -124,7 +125,7 @@ public class GameManager : MonoBehaviour {
 	
 	void SpawnCar(string name, GameObject spawnPosition, string tag)
 	{
-		GameObject obj = ObjectPoolerScript.current.GetPooledObject ();
+		GameObject obj = ObjectPoolerScript.current.GetPooledObject ("car");
 
 		if (obj == null) return;
 

@@ -72,7 +72,7 @@ public class PlayerManager : MonoBehaviour
 	{
 		if (coll.gameObject.tag == "coin")
 		{
-			Destroy (coll.gameObject);
+			coll.gameObject.SetActive(false);
 			mainManager.AddScore(1);
 		}
 		if (coll.gameObject.tag == "car")

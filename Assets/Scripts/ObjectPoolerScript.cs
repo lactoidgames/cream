@@ -5,45 +5,75 @@ using System.Collections.Generic;
 public class ObjectPoolerScript : MonoBehaviour {
 
 	public static ObjectPoolerScript current;
-	public GameObject pooledObject;
-	public int pooledAmount = 5;
-	public bool willGrow = true;
+	public GameObject[] objectPrefabs;
+	public int[] amountToPool;
+	public int defaultPooledAmount = 5;
 
-	List<GameObject> pooledObjects;
+	List<GameObject>[] pooledObjects;
 
 	void Awake()
 	{
 		current = this;
 	}
-	
-	void Start () 
+
+	void Start ()
 	{
-		pooledObjects = new List<GameObject> ();
-		for(int i = 0; i < pooledAmount; i++)
+		pooledObjects = new List<GameObject>[objectPrefabs.Length];
+		
+		int i = 0;
+		foreach (GameObject objectPrefab in objectPrefabs)
 		{
-			GameObject obj = (GameObject)Instantiate(pooledObject);
-			obj.SetActive(false);
-			pooledObjects.Add(obj);
+			pooledObjects[i] = new List<GameObject>(); 
+			
+			int pooledAmount;
+			
+			if(i < amountToPool.Length) 
+				pooledAmount = amountToPool[i];
+			else
+				pooledAmount = defaultPooledAmount;
+			
+			for (int n=0; n < pooledAmount; n++)
+			{
+				GameObject obj = (GameObject)Instantiate(objectPrefab);
+				obj.name = objectPrefab.name;
+				PoolObject(obj);
+			}
+			
+			i++;
+		}
+	}
+	
+	public void PoolObject (GameObject obj)
+	{
+		for ( int i=0; i<objectPrefabs.Length; i++)
+		{
+			if(objectPrefabs[i].name == obj.name)
+			{
+				obj.SetActive(false);
+				pooledObjects[i].Add(obj);
+				return;
+			}
 		}
 	}
 
-	public GameObject GetPooledObject()
+	public GameObject GetPooledObject(string objectType)
 	{
-		for(int i = 0; i < pooledObjects.Count; i++)
+		for(int i=0; i < objectPrefabs.Length; i++)
 		{
-			if(!pooledObjects[i].activeInHierarchy)
+			GameObject prefab = objectPrefabs[i];
+			if(prefab.name == objectType)
 			{
-				return pooledObjects[i];
+				for (int j = 0; j < pooledObjects[i].Count; j++)
+				{
+					if(!pooledObjects[i][j].activeInHierarchy)
+					{
+						GameObject pooledObject = pooledObjects[i][j];
+						return pooledObject;
+					} 
+				}
+				break;
 			}
 		}
-
-		if (willGrow)
-		{
-			GameObject obj = (GameObject)Instantiate(pooledObject);
-			pooledObjects.Add(obj);
-			return obj;
-		}
-
 		return null;
 	}
 }

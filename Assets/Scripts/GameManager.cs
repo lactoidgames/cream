@@ -47,8 +47,7 @@ public class GameManager : MonoBehaviour {
 		waypoints = new GameObject[] {waypoint1, waypoint2, waypoint3, waypoint4,
 									  waypoint5, waypoint6, waypoint7, waypoint8};
 
-		buildings = new PolygonCollider2D[] {building1, building2, building3, building4, 
-										 building5, building6};
+		buildings = new PolygonCollider2D[] {building1, building2, building3, building4};
 
 		StartCoroutine (SpawnCoins ());
 		StartCoroutine(SpawnCars ());

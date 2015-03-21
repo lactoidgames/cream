@@ -10,8 +10,6 @@ public class GameManager : MonoBehaviour {
 	public PolygonCollider2D building2;
 	public PolygonCollider2D building3;
 	public PolygonCollider2D building4;
-	public PolygonCollider2D building5;
-	public PolygonCollider2D building6;
 	private PolygonCollider2D[] buildings;
 
 	public GameObject waypoint1;

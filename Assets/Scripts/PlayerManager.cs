@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviour
 		animator = GetComponent<Animator> ();
 		anim = GetComponent<Animation> ();
 	}
-
+	
 	public Vector3 Target
 	{
 		get { return Target; }

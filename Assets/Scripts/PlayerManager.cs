@@ -5,7 +5,6 @@ public class PlayerManager : MonoBehaviour
 {
 	private MainManager mainManager;
 	private Animator animator;
-	private Animation anim;
 
 	void Start()
 	{
@@ -20,9 +19,8 @@ public class PlayerManager : MonoBehaviour
 			Debug.Log ("Cannot find ‘MainManager’ script");
 		}
 
-		//get reference to Animator and Animation components
+		//get reference to Animator component
 		animator = GetComponent<Animator> ();
-		anim = GetComponent<Animation> ();
 	}
 	
 	public Vector3 Target
@@ -77,7 +75,6 @@ public class PlayerManager : MonoBehaviour
 		}
 		if (coll.gameObject.tag == "car")
 		{
-			anim.CrossFade("Hit");
 		}
 	}
 }
